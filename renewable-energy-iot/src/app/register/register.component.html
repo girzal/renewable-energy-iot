@@ -1,5 +1,11 @@
-<h2>Register</h2>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" formControlName="user_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" />
+        <div *ngIf="submitted && f.user_id.errors" class="invalid-feedback">
+            <div *ngIf="f.user_id.errors.required">Email is required</div>
+        </div>
+    </div>
     <div class="form-group">
         <label for="firstName">First Name</label>
         <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
@@ -15,10 +21,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
+        <label for="userName">Username</label>
+        <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" />
+        <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+            <div *ngIf="f.userName.errors.required">Username is required</div>
         </div>
     </div>
     <div class="form-group">

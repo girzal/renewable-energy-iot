@@ -21,17 +21,24 @@ export class AuthenticationService {
    }
 
    login(username: string, password:string){
-     return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username, password })
+     return this.http.post<any>(`/users/authenticate`, { username, password })
      .pipe(map(user => {
        if(user && user.token){
+         sessionStorage.setItem('authenticatedUser',JSON.stringify(user));
          localStorage.setItem('currentUser',JSON.stringify(user));
          this.currentUserSubject.next(user);
        }
      }))
    }
 
+   isUserLoggedIn(){
+    let user = sessionStorage.getItem('authenticatedUser');
+    return !(user ===null)
+  }
+
    logout() {
     // remove user from local storage to log user out
+    sessionStorage.removeItem('authenticatedUser');
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
 }

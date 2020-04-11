@@ -10,22 +10,24 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAll(){
-    return this.http.get<User[]>(`${config.apiUrl}/users`);
+    return this.http.get<User[]>(`/users`);
   }
 
-  getById(id: number) {
-    return this.http.get(`${config.apiUrl}/users/${id}`);
+  getById(user_id: string) {
+    return this.http.get(`/users/${user_id}`);
   }
 
   register(user: User) {
-      return this.http.post(`${config.apiUrl}/users/register`, user);
+      console.log("in register method...........")
+      console.log(user)
+      return this.http.post(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/register`, user);
   }
 
   update(user: User) {
-      return this.http.put(`${config.apiUrl}/users/${user.id}`, user);
+      return this.http.put(`/users/${user.user_id}`, user);
   }
 
-  delete(id: number) {
-      return this.http.delete(`${config.apiUrl}/users/${id}`);
+  delete(user_id: number) {
+      return this.http.delete(`/users/${user_id}`);
   }
 }
