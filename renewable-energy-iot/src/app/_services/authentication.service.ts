@@ -21,8 +21,9 @@ export class AuthenticationService {
    }
 
    login(username: string, password:string){
-     return this.http.post<any>(`/users/authenticate`, { username, password })
+     return this.http.post<any>(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/authenticate`, { username, password })
      .pipe(map(user => {
+       console.log("in the login function user");
        if(user && user.token){
          sessionStorage.setItem('authenticatedUser',JSON.stringify(user));
          localStorage.setItem('currentUser',JSON.stringify(user));

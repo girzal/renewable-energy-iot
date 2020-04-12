@@ -10,7 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { AlertComponent } from './alert/alert.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { JwtInterceptor, ErrorInterceptor, fakeBackendProvider } from './_helpers';
+import { JwtInterceptor, ErrorInterceptor, BackendProvider} from './_helpers';
 import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
 
@@ -35,7 +35,7 @@ import { MenuComponent } from './menu/menu.component';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend
-    fakeBackendProvider
+    // BackendProvider
   ],
   bootstrap: [AppComponent]
 })

@@ -7,7 +7,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
 @Injectable()
-export class FakeBackendInterceptor implements HttpInterceptor {
+export class BackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url, method, headers, body } = request;
 
@@ -41,7 +41,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function register() {
             const user = body
 
-            console.log("in the fakebackend interceptors");
+            console.log("in the backend interceptors");
 
             if (users.find(x => x.username === user.username)) {
                 return error('Username "' + user.username + '" is already taken')
@@ -104,7 +104,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function isLoggedIn() {
-            return headers.get('Authorization') === 'Bearer fake-jwt-token';
+            return headers.get('Authorization') === 'Bearer -jwt-token';
         }
 
         function idFromUrl() {
@@ -114,9 +114,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 }
 
-export const fakeBackendProvider = {
-    // use fake backend in place of Http service for backend-less development
+export const BackendProvider = {
+    // use  backend in place of Http service for backend-less development
     provide: HTTP_INTERCEPTORS,
-    useClass: FakeBackendInterceptor,
+    useClass: BackendInterceptor,
     multi: true
 };
