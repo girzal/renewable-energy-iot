@@ -41,7 +41,6 @@ export class BackendInterceptor implements HttpInterceptor {
         function register() {
             const user = body
 
-            console.log("in the backend interceptors");
 
             if (users.find(x => x.username === user.username)) {
                 return error('Username "' + user.username + '" is already taken')
@@ -56,7 +55,6 @@ export class BackendInterceptor implements HttpInterceptor {
 
         function authenticate() {
 
-            console.log("HAHHHAHHAHAAAAA--------inside the authenticate service")
             const { username, password } = body;
             const user = users.find(x => x.username === username && x.password === password);
             if (!user) return error('Username or password is incorrect');

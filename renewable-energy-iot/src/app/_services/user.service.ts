@@ -18,9 +18,7 @@ export class UserService {
   }
 
   register(user: User) {
-      console.log("in register method...........")
-      console.log(user)
-      // return this.http.post(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/register`, user);
+      return this.http.post(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/register`, user);
       return null;
   }
 

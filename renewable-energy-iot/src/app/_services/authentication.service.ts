@@ -10,38 +10,39 @@ import { map } from 'rxjs/operators'
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+  private user:User;
 
   constructor(private http:HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-   }
+  }
 
-   public get currentUserValue():User {
+  public get currentUserValue():User {
     return this.currentUserSubject.value;
-   }
+  }
 
-   login(username: string, password:string){
-     return this.http.post<any>(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/authenticate`, { username, password })
+  login(user_id: string, password:string){
+     return this.http.post<any>(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/authenticate`, { user_id, password })
      .pipe(map(user => {
-       console.log("in the login function user");
-       if(user && user.token){
-         sessionStorage.setItem('authenticatedUser',JSON.stringify(user));
-         localStorage.setItem('currentUser',JSON.stringify(user));
+      //  if(user && user.token){
+        if(user.statusCode == 200){
+         sessionStorage.setItem('authenticatedUser',JSON.parse(user.body).Item.user_id.S);
+         localStorage.setItem('currentUser',JSON.parse(user.body).Item.user_id.S);
          this.currentUserSubject.next(user);
        }
      }))
-   }
+  }
 
-   isUserLoggedIn(){
+  isUserLoggedIn(){
     let user = sessionStorage.getItem('authenticatedUser');
     return !(user ===null)
   }
 
-   logout() {
+  logout() {
     // remove user from local storage to log user out
     sessionStorage.removeItem('authenticatedUser');
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-}
+  }
 
 }
