@@ -3,6 +3,8 @@ import { User } from '@/_models';
 import { Subscription } from 'rxjs';
 import { AuthenticationService, UserService } from '@/_services/index.service';
 import { first } from 'rxjs/operators';
+import { UserData } from '@/_models/userData';
+import { UserdataService } from '@/_services/userdata.service';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +14,13 @@ import { first } from 'rxjs/operators';
 export class HomeComponent implements OnInit {
 
     currentUser: User;
+    userData:UserData;
     currentUserSubscription: Subscription;
     users: User[] = [];
 
     constructor(
         private authenticationService: AuthenticationService,
-        private userService: UserService
+        private userdataService: UserdataService
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
@@ -25,7 +28,8 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.loadAllUsers();
+        this.loadUserData();
+
     }
 
     ngOnDestroy() {
@@ -39,9 +43,9 @@ export class HomeComponent implements OnInit {
         // });
     }
 
-    private loadAllUsers() {
-        // this.userService.getAll().pipe(first()).subscribe(users => {
-        //     this.users = users;
+    private loadUserData() {
+        // this.userdataService.getById.pipe(first()).subscribe(users => {
+        //     this.userData = userData;
         // });
     }
 

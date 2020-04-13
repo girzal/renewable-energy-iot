@@ -13,6 +13,8 @@ import { RegisterComponent } from './register/register.component';
 import { JwtInterceptor, ErrorInterceptor, BackendProvider} from './_helpers';
 import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
+import { SellComponent } from './sell/sell.component';
+import { BuyComponent } from './buy/buy.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { MenuComponent } from './menu/menu.component';
     HomeComponent,
     RegisterComponent,
     FooterComponent,
-    MenuComponent
+    MenuComponent,
+    SellComponent,
+    BuyComponent
   ],
   imports: [
     BrowserModule,

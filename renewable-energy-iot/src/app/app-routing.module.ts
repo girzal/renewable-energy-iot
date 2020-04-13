@@ -4,11 +4,15 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { RegisterComponent } from './register/register.component';
+import { SellComponent } from './sell/sell.component';
+import { BuyComponent } from './buy/buy.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'sell', component: SellComponent },
+    { path: 'buy', component: BuyComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
