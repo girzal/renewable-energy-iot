@@ -1,3 +1,77 @@
-<p>
-  buy works!
-</p>
+
+
+<!-- <app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true" [positionGloballyCenter]="true"
+ [displayProgressSpinner]="isProcessing">
+</app-progress-spinner> -->
+
+
+<div class="example-container " [ngClass]="{'overlay' : isProcessing}" >
+    <div class="table-loading-shade" *ngIf="isProcessing">
+      <div *ngIf="isProcessing" class="spinner-border spinner text-primary">
+      </div>
+      <div class="text-primary">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    
+    <div class="example-header" [ngClass]="{'hide' : isProcessing}">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+    <mat-table [dataSource]="dataSource" matSort [ngClass]="{'hide' : isProcessing}">
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="transaction_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Transaction ID</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.transaction_id}} </mat-cell>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="From_user">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Remitter Email </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.From_user}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="transaction_date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Transaction Date </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.transaction_date}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="transaction_type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Transaction Type </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.transaction_type}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="volume">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Transaction Volume </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.volume}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="total_volume">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Available Volume </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.total_volume}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <!-- <ng-container matColumnDef="date_of_transaction">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Date of Transc. </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.date_of_transaction}} </mat-cell>
+    </ng-container> -->
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="color">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>
+      <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+  <mat-paginator [ngClass]="{'hide' : isProcessing}" [pageSizeOptions]="[5]"></mat-paginator>
+</div>

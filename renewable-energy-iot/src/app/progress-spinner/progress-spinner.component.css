@@ -1,0 +1,6 @@
+::ng-deep .custom-backdrop-class{
+    background: yellow;
+  }
+  ::ng-deep .custom-panel-class{
+    background:red;
+  }

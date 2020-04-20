@@ -24,9 +24,7 @@ export class MenuComponent implements OnInit {
         this.router.navigate(['login']);
     }
   }
-
-
-
+  
   ngOnInit() {
     this.isUserLoggedIn = this.authenticationService.isUserLoggedIn();
   }

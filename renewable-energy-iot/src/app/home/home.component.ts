@@ -5,6 +5,8 @@ import { AuthenticationService, UserService } from '@/_services/index.service';
 import { first } from 'rxjs/operators';
 import { UserData } from '@/_models/userData';
 import { UserdataService } from '@/_services/userdata.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -17,14 +19,20 @@ export class HomeComponent implements OnInit {
     userData:UserData;
     currentUserSubscription: Subscription;
     users: User[] = [];
+    is_sell:boolean;
+    editProfileForm: FormGroup;
+    $modalResult: UserData;
+    message:string;
 
     constructor(
         private authenticationService: AuthenticationService,
-        private userdataService: UserdataService
+        private userdataService: UserdataService,
+        private modalService: NgbModal,
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
         });
+        this.is_sell = true;
     }
 
     ngOnInit() {
@@ -47,6 +55,17 @@ export class HomeComponent implements OnInit {
         // this.userdataService.getById.pipe(first()).subscribe(users => {
         //     this.userData = userData;
         // });
+    }
+
+    openHomeModal(targetModal,is_sell) {
+        this.modalService.open(targetModal, {
+         centered: true,
+         backdrop: 'static'
+        });
+       
+        this.editProfileForm.patchValue({
+         is_sell: is_sell,
+        });
     }
 
 }

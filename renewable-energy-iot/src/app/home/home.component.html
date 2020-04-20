@@ -1,42 +1,83 @@
 <div class="container">
-    <div class="row">
-      <div class="col-sm-6 offset-sm-3 mt-5">
-        <!-- <h1>Hi {{currentUser.firstName}}!</h1> -->
-        <h3>You're logged in!!:</h3>
-        <!-- <ul>
-      <li *ngFor="let user of users">
-          {{user.username}} ({{user.firstName}} {{user.lastName}})
-          - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
-      </li>
-  </ul> -->
-        <div class="container">
-          <div class="row mt-5">
-            <div clas="col">
-              <h2>
-                <span class="badge">Total Volume Produced</span>
-                <span class="badge">1500</span>
-              </h2>
-            </div>
+  <div class="row mt-5">
+    <div class="col"></div>
+      <div class="card mr-5 bg-light" style="width: 18rem;">
+        <div class="card-body">
+          <h4 class="card-title text-center text-muted text-capitalize font-weight-bold">Energy Available</h4>
+          <h3 class="card-text p2p-value mt-4 text-center text-success font-weight-bold">2134 kWh</h3>
+          <div class="text-center">
+            <button mat-raised-button  class="text-center" (click)="openHomeModal(homemodal,true)" *ngIf="is_sell">Enable Sell Mode</button>
+            <button mat-raised-button  class="btn btn-primary card-link text-center" *ngIf="!is_sell">Disable Sell Mode</button>
+            <!-- <a href="#" class="card-link">Another link</a> -->
           </div>
-          <div class="row">
-            <div clas="col">
-              <h2>
-                <span class="badge">Total Volume Sold</span>
-                <span class="badge">1500</span>
-              </h2>
-            </div>
-          </div>
-          <div class="row">
-            <div clas="col">
-              <h2>
-                <span class="badge">Total Volume Purchased</span>
-                <span class="badge">1500</span>
-              </h2>
-            </div>
-          </div>
-  
+         
         </div>
-  
-      </div>`
-    </div>
+      </div>
+      <div class="card mr-5 bg-light" style="width: 18rem;">
+        <div class="card-body">
+          <h4 class="card-title text-center text-muted  text-capitalize font-weight-bold">Energy Consumed</h4>
+          <h3 class="card-text p2p-value mt-4 text-center text-danger font-weight-bold">2134 kWh</h3>
+        </div>
+      </div>
+      <div class="card mr-5 bg-light" style="width: 18rem;">
+        <div class="card-body">
+          <h4 class="card-title text-center text-muted  text-capitalize font-weight-bold">Energy Produced</h4>
+          <h3 class="card-text p2p-value mt-4 text-center text-warning font-weight-bold">2134 kWh</h3>
+        </div>
+      </div>
   </div>
+  <div class="row mt-5">
+    <div class="col"></div>
+      <div class="card mr-5 bg-light" style="width: 18rem;">
+        <div class="card-body">
+          <h4 class="card-title text-center text-muted text-capitalize font-weight-bold">Energy Sold</h4>
+          <h3 class="card-text p2p-value mt-4 text-center pt-3 pb-3 text-info font-weight-bold">2134 kWh</h3>
+        </div>
+      </div>
+      <div class="card mr-5 bg-light" style="width: 18rem;">
+        <div class="card-body">
+          <h4 class="card-title text-center text-muted text-capitalize font-weight-bold">Energy Purchased</h4>
+          <h3 class="card-text p2p-value mt-4 text-center pt-3 pb-3 text-danger font-weight-bold">2134 kWh</h3>
+        </div>
+      </div>
+      <div class="card mr-5 bg-light" style="width: 18rem;">
+        <div class="card-body">
+          <h4 class="card-title text-center text-muted  text-capitalize font-weight-bold">Frequent Buyer</h4>
+          <h3 class="card-text p2p-value mt-4 text-center pt-3 pb-3 text-warning font-weight-bold">2134 kWh</h3>
+        </div>
+      </div>
+  </div>
+
+
+  
+  <ng-template #homemodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Selling Mode</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-danger" role="alert" *ngIf="message">
+        <strong >Warning!</strong> {{message}}
+      </div> 
+      <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <label for="quantity" class="col-sm-4 col-form-label">Are you sure you want to enable sell mode?</label>
+        </div>
+        <div class="form-group row">
+          <!-- <label for="total_volume" class="col-sm-4 col-form-label">Total Volume</label> -->
+          <div class="col-sm-8">
+            <input type="hidden" class="form-control" value="true" formControlName="is_sell" id="is_sell">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button> -->
+          <button mat-raised-button (click)="modal.dismiss()" class="btn btn-primary">Cancel</button>
+          <button mat-raised-button type="submit">Enable</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>
