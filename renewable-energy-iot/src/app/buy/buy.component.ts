@@ -41,7 +41,7 @@ export class BuyComponent implements OnInit {
     // for (let i = 1; i <= 100; i++) { users.push(createNewUser(i)); }
     let user = localStorage.getItem("currentUser");
     
-    this.service.getAllUserTransactionData("divyanayak8853@gmail.com").subscribe
+    this.service.getAllUserTransactionData(user).subscribe
     // this.service.getAllUserTransactionData(user).subscribe
     (
       (response)=> {

@@ -10,28 +10,38 @@ import { map } from 'rxjs/operators'
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
-  private user:User;
+  public user:User;
 
   constructor(private http:HttpClient) {
     console.log("valueeeeeeees"+JSON.parse(localStorage.getItem('currentUser')))
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.user = new User();
   }
 
   public get currentUserValue():User {
     return this.currentUserSubject.value;
   }
 
-  login(user_id: string, password:string){
-     return this.http.post<any>(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/authenticate`, { user_id, password })
-     .pipe(map(user => {
-      //  if(user && user.token){
-        if(user.statusCode == 200){
-         sessionStorage.setItem('authenticatedUser',JSON.parse(user.body).Item.user_id.S);
-         localStorage.setItem('currentUser',JSON.parse(user.body).Item.user_id.S);
-         this.currentUserSubject.next(user);
-       }
-     }))
+  login(email_id: string, clientId: string){
+    console.log("email_id,clientId"+email_id,clientId)
+    this.user.user_id = email_id;
+    this.user.token = clientId;
+
+    sessionStorage.setItem('authenticatedUser',this.user.user_id);
+    localStorage.setItem('currentUser',this.user.user_id);
+    this.currentUserSubject.next(this.user);
+
+     
+    // return this.http.post<any>(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/authenticate`, { user_id, password })
+    // .pipe(map(user => {
+    //  //  if(user && user.token){
+    //    if(user.statusCode == 200){
+    //     sessionStorage.setItem('authenticatedUser',JSON.parse(user.body).Item.user_id.S);
+    //     localStorage.setItem('currentUser',JSON.parse(user.body).Item.user_id.S);
+    //     this.currentUserSubject.next(user);
+    //   }
+    // }))
   }
 
   isUserLoggedIn(){

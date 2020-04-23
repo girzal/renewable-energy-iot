@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-renewable-energy-iot-dev-113628-authRole",
+            "UnauthRoleArn": "arn:aws:iam::844885759530:role/amplify-renewable-energy-iot-dev-113628-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::844885759530:role/amplify-renewable-energy-iot-dev-113628-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-renewable-energy-iot-dev-113628-deployment",
+            "UnauthRoleName": "amplify-renewable-energy-iot-dev-113628-unauthRole",
+            "StackName": "amplify-renewable-energy-iot-dev-113628",
+            "StackId": "arn:aws:cloudformation:us-east-1:844885759530:stack/amplify-renewable-energy-iot-dev-113628/6a6ba320-845f-11ea-94ff-0a8267cebc39",
+            "AmplifyAppId": "d3d8i3jxiqn3mr"
+        }
+    }
+}

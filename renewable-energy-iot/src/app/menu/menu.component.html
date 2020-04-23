@@ -3,13 +3,13 @@
           P2P Energy Trading</a></div>
           
     <ul class="navbar-nav">
-      <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/" class="nav-link btn btn-outline-primary px-4">Home</a></li>
-      <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/buy" class="nav-link btn btn-outline-primary px-4  ml-2">Buy</a></li>
-      <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/sell" class="nav-link btn btn-outline-primary px-4  ml-2">Sell</a></li>
+      <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/home" class="nav-link btn btn-outline-primary px-4">Home</a></li>
+      <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/buy" class="nav-link btn btn-outline-primary px-4  ml-2">Ledger</a></li>
+      <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/sell" class="nav-link btn btn-outline-primary px-4  ml-2">Buy</a></li>
     </ul>
 
     <ul class="navbar-nav navbar-collapse justify-content-end">
-      <li><a *ngIf="!authenticationService.isUserLoggedIn()" routerLink="/register" class="nav-link btn btn-outline-primary">Sign up</a></li>
+      <li><a *ngIf="!authenticationService.isUserLoggedIn()" routerLink="/register"  class="nav-link btn btn-outline-primary">Sign up</a></li>
       <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="#" (click)=handleLogout() class="nav-link btn btn-outline-primary">Logout</a></li>
     </ul>
   </nav>

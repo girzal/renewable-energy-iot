@@ -94,6 +94,7 @@
      <div class="alert alert-danger" role="alert" *ngIf="message">
        <strong >Warning!</strong> {{message}}
       </div> 
+      
       <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
         <div class="form-group row">
           <label for="quantity" class="col-sm-4 col-form-label">Quantity :</label>

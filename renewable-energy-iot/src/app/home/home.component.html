@@ -1,43 +1,44 @@
 <div class="container">
+  <div class="table-loading-shade" *ngIf="isProcessing">
+    <div *ngIf="isProcessing" class="spinner-border spinner text-primary">
+    </div>
+  </div>
   <div class="row mt-5">
-    <div class="col"></div>
       <div class="card mr-5 bg-light" style="width: 18rem;">
         <div class="card-body">
           <h4 class="card-title text-center text-muted text-capitalize font-weight-bold">Energy Available</h4>
-          <h3 class="card-text p2p-value mt-4 text-center text-success font-weight-bold">2134 kWh</h3>
-          <div class="text-center">
-            <button mat-raised-button  class="text-center" (click)="openHomeModal(homemodal,true)" *ngIf="is_sell">Enable Sell Mode</button>
-            <button mat-raised-button  class="btn btn-primary card-link text-center" *ngIf="!is_sell">Disable Sell Mode</button>
+          <h3 class="card-text p2p-value text-center text-success font-weight-bold">{{userData.total_volume}}</h3>
+            <button mat-raised-button  class="text-center btn btn-primary" (click)="openHomeModal(homemodalEnable)" *ngIf="!is_sell_tag">Enable Sell Mode</button>
+            <button mat-raised-button  class="text-center btn btn-primary" (click)="openHomeModal(homemodalDisable)" *ngIf="is_sell_tag">Disable Sell Mode</button>
+            <!-- <button mat-raised-button  class="btn btn-primary card-link text-center" *ngIf="!is_sell">Disable Sell Mode</button> -->
             <!-- <a href="#" class="card-link">Another link</a> -->
-          </div>
          
         </div>
       </div>
       <div class="card mr-5 bg-light" style="width: 18rem;">
         <div class="card-body">
           <h4 class="card-title text-center text-muted  text-capitalize font-weight-bold">Energy Consumed</h4>
-          <h3 class="card-text p2p-value mt-4 text-center text-danger font-weight-bold">2134 kWh</h3>
+          <h3 class="card-text p2p-value mt-4 text-center text-danger font-weight-bold">{{userData.totalsum_produced}}</h3>
         </div>
       </div>
       <div class="card mr-5 bg-light" style="width: 18rem;">
         <div class="card-body">
           <h4 class="card-title text-center text-muted  text-capitalize font-weight-bold">Energy Produced</h4>
-          <h3 class="card-text p2p-value mt-4 text-center text-warning font-weight-bold">2134 kWh</h3>
+          <h3 class="card-text p2p-value mt-4 text-center text-warning font-weight-bold">{{userData.totalsum_produced}}</h3>
         </div>
       </div>
   </div>
   <div class="row mt-5">
-    <div class="col"></div>
       <div class="card mr-5 bg-light" style="width: 18rem;">
         <div class="card-body">
           <h4 class="card-title text-center text-muted text-capitalize font-weight-bold">Energy Sold</h4>
-          <h3 class="card-text p2p-value mt-4 text-center pt-3 pb-3 text-info font-weight-bold">2134 kWh</h3>
+          <h3 class="card-text p2p-value mt-4 text-center pt-3 pb-3 text-info font-weight-bold">{{userData.totalsum_sold}}</h3>
         </div>
       </div>
       <div class="card mr-5 bg-light" style="width: 18rem;">
         <div class="card-body">
           <h4 class="card-title text-center text-muted text-capitalize font-weight-bold">Energy Purchased</h4>
-          <h3 class="card-text p2p-value mt-4 text-center pt-3 pb-3 text-danger font-weight-bold">2134 kWh</h3>
+          <h3 class="card-text p2p-value mt-4 text-center pt-3 pb-3 text-danger font-weight-bold">{{userData.totalsum_purchased}}</h3>
         </div>
       </div>
       <div class="card mr-5 bg-light" style="width: 18rem;">
@@ -50,7 +51,7 @@
 
 
   
-  <ng-template #homemodal let-modal>
+  <ng-template #homemodalEnable let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Selling Mode</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -61,9 +62,9 @@
       <div class="alert alert-danger" role="alert" *ngIf="message">
         <strong >Warning!</strong> {{message}}
       </div> 
-      <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="sellProfileForm" (ngSubmit)="onSellEnableFlag()">
         <div class="form-group row">
-          <label for="quantity" class="col-sm-4 col-form-label">Are you sure you want to enable sell mode?</label>
+          <label for="quantity" class="col-sm-12 col-form-label">Are you sure you want to enable selling mode?</label>
         </div>
         <div class="form-group row">
           <!-- <label for="total_volume" class="col-sm-4 col-form-label">Total Volume</label> -->
@@ -80,4 +81,35 @@
       </form>
     </div>
   </ng-template>
+
+  <ng-template #homemodalDisable let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Selling Mode</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-danger" role="alert" *ngIf="message">
+        <strong >Warning!</strong> {{message}}
+      </div> 
+      <form [formGroup]="sellProfileForm" (ngSubmit)="onSellDisableFlag()">
+        <div class="form-group row">
+          <label for="quantity" class="col-sm-12 col-form-label">Are you sure you want to disable the sell mode?</label>
+        </div>
+        <div class="form-group row">
+          <!-- <label for="total_volume" class="col-sm-4 col-form-label">Total Volume</label> -->
+          <div class="col-sm-8">
+            <input type="hidden" class="form-control" value="false" formControlName="is_sell" id="is_sell">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button> -->
+          <button mat-raised-button (click)="modal.dismiss()" class="btn btn-primary">Cancel</button>
+          <button mat-raised-button type="submit">Enable</button>
+        </div>
+      </form>
+     </div>
+    </ng-template>
 </div>

@@ -32,7 +32,7 @@ export class SellComponent implements OnInit {
   editProfileForm: FormGroup;
   $modalResult: UserData;
   message:string;
-  
+  o
   closeResult: string;
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -71,10 +71,10 @@ export class SellComponent implements OnInit {
     }else{
         this.modalService.dismissAll();
         this.isProcessing = true;
-        sessionStorage.getItem("");
         this.target_user_id = localStorage.getItem("currentUser");
         console.log("this.target_user_id   "+this.target_user_id );//todo
-        this.userDataService.updateUserData(this.$modalResult.user_id,"atakkar@deloitte.com",100*this.$modalResult.quantity).subscribe(
+        console.log("this.$modalResult.user_id   "+this.$modalResult.user_id);//todo
+        this.userDataService.updateUserData(this.$modalResult.user_id,this.target_user_id,100*this.$modalResult.quantity).subscribe(
           (response)=>{
             this.reloadData();
             this.isProcessing = false;
@@ -131,11 +131,11 @@ export class SellComponent implements OnInit {
       // Set the id of the student that is being edited
       // this.countryId = countryId;
       this.isProcessing = true;
-      console.log("this.onBuyClick is called with countryId "+ user_id+" total_volume is "+vop);
+      console.log("newh  "+ user_id+" twwwwwwwww otal_volume is "+vop);
       sessionStorage.getItem("");
       this.target_user_id = localStorage.getItem("currentUser");
       console.log("this.target_user_id   "+this.target_user_id );
-      this.userDataService.updateUserData(user_id,"atakkar@deloitte.com",20).subscribe(
+      this.userDataService.updateUserData(user_id,this.target_user_id,20).subscribe(
         (response)=>{
           this.reloadData();
           this.isProcessing = false;
@@ -163,7 +163,7 @@ export class SellComponent implements OnInit {
 
   reloadData(){
     console.log("inside the reload data");//todo- fetching the logged in user email to pass in the getAllUserData
-    this.userDataService.getAllUserData("atakkar@deloitte.com").subscribe
+    this.userDataService.getAllUserData(localStorage.getItem("currentUser")).subscribe
     (
       (response) => {
         console.log("inside the respone")

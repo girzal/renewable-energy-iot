@@ -4,6 +4,10 @@ import './polyfills';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+import Amplify from 'aws-amplify';
+import awsconfig from './app/aws-exports'; 
+
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -37,6 +41,10 @@ import {
   MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
+
+
+Amplify.configure(awsconfig);
+
 if (environment.production) {
   enableProdMode();
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@/_services/index.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Auth } from "aws-amplify";
 
 @Component({
   selector: 'app-menu',
@@ -19,7 +20,14 @@ export class MenuComponent implements OnInit {
     ) { }
 
   handleLogout(){
-    if (this.authenticationService.currentUserValue) {  
+    if (this.authenticationService.currentUserValue) {
+        Auth.signOut()
+        .then(data => {
+          console.log(data);
+          console.log("You are successfully logged out");
+          // this.router.navigate(["/login"]);
+        })
+        .catch(err => console.log(err));  
         this.authenticationService.logout();
         this.router.navigate(['login']);
     }

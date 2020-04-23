@@ -5,5 +5,8 @@ export class UserData {
     total_volume: number;
     quantity:number;
     Name:string;
-    flag:boolean;
+    is_sell:boolean;
+    totalsum_produced:number;
+    totalsum_purchased:number;
+    totalsum_sold:number;
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { UserData } from '@/_models/userData';
-import { Country } from '@/_models/country';
 import { User } from '@/_models';
 import { UserTransaction } from '@/_models/userTransaction';
 
@@ -13,6 +12,7 @@ export interface UserTradingData{
 }
 export interface UserPrimary{
   user_id:string;
+  is_sell:boolean;
 }
 
 export interface UserTransactionDetails {
@@ -41,20 +41,42 @@ export class UserdataService {
   };
 
   private userPrimary: UserPrimary = {
-    user_id: ""
+    user_id: "",
+    is_sell: false
   };
 
   
   constructor(private http:HttpClient) { }
 
 
-  register(user: UserData) {
-    return this.http.post(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/register`, user);
+  // register(user: UserData) {
+  //   return this.http.post(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/register`, user);
+  // }
+
+  setFlagSell(user_id: string, is_sell:boolean) {
+    this.userPrimary.user_id = user_id;
+    this.userPrimary.is_sell = is_sell;
+    return this.http.post(`https://n328t8nned.execute-api.us-east-1.amazonaws.com/Develop/changesellflag`, this.userPrimary);
+  }
+
+  getTotalVolume(user_id:string){
+    this.userPrimary.user_id = user_id;
+    return this.http.post<UserTransactionDetails[]>(`https://n328t8nned.execute-api.us-east-1.amazonaws.com/Develop/totalvolume`,this.userPrimary);
   }
 
   getAllUserData(user_id:string){
     this.userPrimary.user_id = user_id;
-    return this.http.post<UserTransactionDetails[]>(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/selldata`,this.userPrimary);
+    return this.http.post<UserTransactionDetails[]>(`https://n328t8nned.execute-api.us-east-1.amazonaws.com/Develop/getallselldata`,this.userPrimary);
+  }
+
+  getAllUserTransactionSum(user_id:string){
+    this.userPrimary.user_id = user_id;
+    return this.http.post<UserTransactionDetails[]>(`https://n328t8nned.execute-api.us-east-1.amazonaws.com/Develop/all-transaction`,this.userPrimary);
+  }
+
+  getUtilizationData(user_id:string){
+    this.userPrimary.user_id = user_id;
+    return this.http.post<UserTransactionDetails[]>(`https://n328t8nned.execute-api.us-east-1.amazonaws.com/Develop/all-transaction`,this.userPrimary);
   }
 
   getAllUserTransactionData(user_id:string){
@@ -64,7 +86,7 @@ export class UserdataService {
 
   getHomePageData(user_id:string){
     this.userPrimary.user_id = user_id;
-    return this.http.post<UserTransactionDetails[]>(`https://xb7jmbvs4l.execute-api.us-east-1.amazonaws.com/dev/p2p_retrieve_all_trading_data`,this.userPrimary);
+    return this.http.post<UserData[]>(`https://xb7jmbvs4l.execute-api.us-east-1.amazonaws.com/dev/p2p_retrieve_all_trading_data`,this.userPrimary);
   }
 
   deleteUser(user_id:string): Observable<any>{

@@ -2,10 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../_models';
 
+export interface UserRegister{
+  email:string,
+  DeviceID:string,
+  Name:string,
+  Location:string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
+  private userRegister: UserRegister = {
+      email : "",
+      DeviceID : "",
+      Name : "",
+      Location : ""
+  };
 
   constructor(private http: HttpClient) { }
 
@@ -17,9 +31,8 @@ export class UserService {
     return this.http.get(`/users/${user_id}`);
   }
 
-  register(user: User) {
-      return this.http.post(`https://fur5zri601.execute-api.us-east-1.amazonaws.com/dev/user/register`, user);
-      return null;
+  register(user: UserRegister) {
+      return this.http.post(`https://n328t8nned.execute-api.us-east-1.amazonaws.com/Develop/register`, user);
   }
 
   update(user: User) {//todo
